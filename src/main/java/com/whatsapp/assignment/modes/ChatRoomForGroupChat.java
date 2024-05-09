@@ -18,4 +18,6 @@ public class ChatRoomForGroupChat {
     private WhatsAppUserRegistration createdBy;
     @OneToMany
     private List<WhatsAppUserRegistration> groupMembers;
+    @OneToMany
+    private List<ChatMessage> chatMessage;
 }

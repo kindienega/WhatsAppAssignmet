@@ -1,0 +1,23 @@
+version: '3'
+services:
+  assignment-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: assignment-app
+    ports:
+      - "8088:8088"
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/wodebet
+      - SPRING_DATASOURCE_USERNAME=postgres
+      - SPRING_DATASOURCE_PASSWORD=2024
+    depends_on:
+      - db
+  db:
+    image: postgres:latest
+    environment:
+      - POSTGRES_DB=wodebet
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=2024
+    ports:
+      - "5432:5432"

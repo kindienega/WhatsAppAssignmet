@@ -8,7 +8,6 @@ import java.util.List;
 @Getter
 @Setter
 public class ChatRoomResponseDto {
-    private Long id;
     private String groupName;
     private String groupDescription;
     private String createdBy;
