@@ -5,6 +5,7 @@ import com.whatsapp.assignment.dto.response.ChatRoomResponseDto;
 import com.whatsapp.assignment.modes.ChatMessage;
 import com.whatsapp.assignment.modes.ChatRoomForGroupChat;
 import com.whatsapp.assignment.modes.WhatsAppUserRegistration;
+import com.whatsapp.assignment.repository.ChatMessageRepository;
 import com.whatsapp.assignment.repository.ChatRoomRepository;
 import com.whatsapp.assignment.repository.WhatsAppUserRegistrationRepository;
 import lombok.RequiredArgsConstructor;
@@ -20,6 +21,7 @@ import java.util.stream.Collectors;
 public class ChatRoomService {
     private final ChatRoomRepository chatRoomRepository;
     private final WhatsAppUserRegistrationRepository userRegistrationRepository;
+    private final ChatMessageRepository chatMessageRepository;
 
     public ChatRoomResponseDto createChatRoom(ChatRoomRequestDto chatRoomRequestDto) {
         WhatsAppUserRegistration createdBy = userRegistrationRepository.findById(chatRoomRequestDto.getCreatedById())
@@ -105,6 +107,7 @@ public class ChatRoomService {
     ChatMessage chatMessage = new ChatMessage();
     chatMessage.setSender(user);
     chatMessage.setMessage(message);
+       chatMessageRepository.save(chatMessage);
 
     if (file != null) {
         if (file.getSize() > 10 * 1024 * 1024) {
