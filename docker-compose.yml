@@ -8,7 +8,7 @@ services:
     ports:
       - "8088:8088"
     environment:
-      - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/wedebet
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5433/wedebet
       - SPRING_DATASOURCE_USERNAME=postgres
       - SPRING_DATASOURCE_PASSWORD=2024
     depends_on:
@@ -20,4 +20,4 @@ services:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=2024
     ports:
-      - "5432:5432"
+      - "5433:5432"

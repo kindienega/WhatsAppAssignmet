@@ -10,6 +10,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.Optional;
 
 @RequiredArgsConstructor
@@ -58,6 +60,25 @@ public class MessageService {
         response.setReceiverEmail(message.getReceiver());
         response.setImageUrl(message.getImageUrl());
         return response;
+    }
+    public Message messageReplay(String senderEmail, String receiverEmail, String content) {
+        List<String> allowedEmojis = Arrays.asList("thumbup", "love", "crying", "surprised");
+
+        if (!allowedEmojis.contains(content) && !content.matches("[a-zA-Z0-9 ]+")) {
+        throw new IllegalArgumentException("Content must be either a text message or one of the allowed emojis.");
+          }
+        Optional<WhatsAppUserRegistration> sender = userRegistrationRepository.findByEmail(senderEmail);
+        Optional<WhatsAppUserRegistration> receiver = userRegistrationRepository.findByEmail(receiverEmail);
+
+        if (sender.isEmpty() || receiver.isEmpty()) {
+            throw new IllegalArgumentException("Both sender and receiver must be registered users.");
+        }
+
+        Message message = new Message();
+        message.setSender(senderEmail);
+        message.setReceiver(receiverEmail);
+        message.setMessage(content);;
+        return messageRepository.save(message);
     }
 
 
